@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Resume | ResumeBuilder</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            margin-bottom: 8px;
+            font-size: 34px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+        }
+
+        .section {
+            background: white;
+            padding: 28px;
+            margin-bottom: 25px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .section-number {
+            color: #2563eb;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .entry {
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            background: #fafafa;
+        }
+
+        .entry-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #374151;
+        }
+
+        .add-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .remove-btn:hover {
+            background: #fecaca;
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 35px 0 60px;
+        }
+
+        .save-btn {
+            background: #111827;
+            color: white;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #000000;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                gap: 10px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <h2>ResumeBuilder</h2>
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+    </nav>
+
+
+    <main class="container">
+
+        <div class="page-title">
+
+            <h1>Create Your Resume</h1>
+
+            <p>
+                Enter your information to create a professional resume.
+            </p>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">01.</span>
+                        Personal Information
+                    </h2>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name <span class="required">*</span>
+                        </label>
+
+                        {{ resume_form.full_name }}
+
+                        {% for error in resume_form.full_name.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Professional Title
+                        </label>
+
+                        {{ resume_form.professional_title }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Email <span class="required">*</span>
+                        </label>
+
+                        {{ resume_form.email }}
+
+                        {% for error in resume_form.email.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Phone <span class="required">*</span>
+                        </label>
+
+                        {{ resume_form.phone }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Location
+                        </label>
+
+                        {{ resume_form.location }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            LinkedIn
+                        </label>
+
+                        {{ resume_form.linkedin }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            GitHub
+                        </label>
+
+                        {{ resume_form.github }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Portfolio
+                        </label>
+
+                        {{ resume_form.portfolio }}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROFESSIONAL SUMMARY -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">02.</span>
+                        Professional Summary
+                    </h2>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    {{ resume_form.summary }}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- EDUCATION -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">03.</span>
+                        Education
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="addEducation()">
+                        + Add Education
+                    </button>
+
+                </div>
+
+
+                {{ education_formset.management_form }}
+
+
+                <div id="education-container">
+
+                    {% for form in education_formset %}
+
+                        <div class="entry education-entry">
+
+                            <div class="entry-title">
+                                Education {{ forloop.counter }}
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>Degree</label>
+                                    {{ form.degree }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Institution</label>
+                                    {{ form.institution }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    {{ form.location }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Start Year</label>
+                                    {{ form.start_year }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>End Year</label>
+                                    {{ form.end_year }}
+                                </div>
+
+                                <div class="form-group full">
+                                    <label>Description</label>
+                                    {{ form.description }}
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeEntry(this)">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SKILLS -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">04.</span>
+                        Skills
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="addSkill()">
+                        + Add Skill
+                    </button>
+
+                </div>
+
+
+                {{ skill_formset.management_form }}
+
+
+                <div id="skill-container">
+
+                    {% for form in skill_formset %}
+
+                        <div class="entry skill-entry">
+
+                            <div class="entry-title">
+                                Skill {{ forloop.counter }}
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>Skill Name</label>
+                                    {{ form.name }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    {{ form.category }}
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeEntry(this)">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PROJECTS -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">05.</span>
+                        Projects
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="addProject()">
+                        + Add Project
+                    </button>
+
+                </div>
+
+
+                {{ project_formset.management_form }}
+
+
+                <div id="project-container">
+
+                    {% for form in project_formset %}
+
+                        <div class="entry project-entry">
+
+                            <div class="entry-title">
+                                Project {{ forloop.counter }}
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>Project Title</label>
+                                    {{ form.title }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Technologies</label>
+                                    {{ form.technologies }}
+                                </div>
+
+                                <div class="form-group full">
+                                    <label>Description</label>
+                                    {{ form.description }}
+                                </div>
+
+                                <div class="form-group full">
+                                    <label>Project Link</label>
+                                    {{ form.project_link }}
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeEntry(this)">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- EXPERIENCE -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">06.</span>
+                        Experience
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="addExperience()">
+                        + Add Experience
+                    </button>
+
+                </div>
+
+
+                {{ experience_formset.management_form }}
+
+
+                <div id="experience-container">
+
+                    {% for form in experience_formset %}
+
+                        <div class="entry experience-entry">
+
+                            <div class="entry-title">
+                                Experience {{ forloop.counter }}
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>Company</label>
+                                    {{ form.company }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Position</label>
+                                    {{ form.position }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    {{ form.start_date }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    {{ form.end_date }}
+                                </div>
+
+                                <div class="form-group full">
+                                    <label>Description</label>
+                                    {{ form.description }}
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeEntry(this)">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ACHIEVEMENTS -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        <span class="section-number">07.</span>
+                        Achievements
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="add-btn"
+                        onclick="addAchievement()">
+                        + Add Achievement
+                    </button>
+
+                </div>
+
+
+                {{ achievement_formset.management_form }}
+
+
+                <div id="achievement-container">
+
+                    {% for form in achievement_formset %}
+
+                        <div class="entry achievement-entry">
+
+                            <div class="entry-title">
+                                Achievement {{ forloop.counter }}
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>
+                                    Achievement
+                                </label>
+
+                                {{ form.description }}
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="remove-btn"
+                                onclick="removeEntry(this)">
+                                Remove
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SAVE -->
+
+            <div class="submit-area">
+
+                <button
+                    type="submit"
+                    class="save-btn">
+                    Save Resume
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+
+    <script>
+
+        function removeEntry(button) {
+
+            const entry = button.closest(".entry");
+
+            const deleteInput = entry.querySelector(
+                'input[name$="-DELETE"]'
+            );
+
+            if (deleteInput) {
+
+                deleteInput.checked = true;
+
+                entry.style.display = "none";
+
+            } else {
+
+                entry.remove();
+
+            }
+
+        }
+
+
+        function addEducation() {
+
+            addForm(
+                "education",
+                "education-container",
+                "education-entry"
+            );
+
+        }
+
+
+        function addSkill() {
+
+            addForm(
+                "skill",
+                "skill-container",
+                "skill-entry"
+            );
+
+        }
+
+
+        function addProject() {
+
+            addForm(
+                "project",
+                "project-container",
+                "project-entry"
+            );
+
+        }
+
+
+        function addExperience() {
+
+            addForm(
+                "experience",
+                "experience-container",
+                "experience-entry"
+            );
+
+        }
+
+
+        function addAchievement() {
+
+            addForm(
+                "achievement",
+                "achievement-container",
+                "achievement-entry"
+            );
+
+        }
+
+
+        function addForm(
+            prefix,
+            containerId,
+            entryClass
+        ) {
+
+            const container =
+                document.getElementById(containerId);
+
+            const totalForms =
+                document.getElementById(
+                    "id_" + prefix + "-TOTAL_FORMS"
+                );
+
+            const formIndex =
+                parseInt(totalForms.value);
+
+            const firstEntry =
+                container.querySelector("." + entryClass);
+
+            if (!firstEntry) {
+                return;
+            }
+
+            const newEntry =
+                firstEntry.cloneNode(true);
+
+            const regex =
+                new RegExp(
+                    prefix + "-\\d+-",
+                    "g"
+                );
+
+            newEntry.innerHTML =
+                newEntry.innerHTML.replace(
+                    regex,
+                    prefix + "-" + formIndex + "-"
+                );
+
+            const inputs =
+                newEntry.querySelectorAll(
+                    "input, textarea"
+                );
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type !== "hidden"
+                    &&
+                    input.type !== "checkbox"
+                ) {
+                    input.value = "";
+                }
+
+                if (input.type === "checkbox") {
+                    input.checked = false;
+                }
+
+            });
+
+            const title =
+                newEntry.querySelector(
+                    ".entry-title"
+                );
+
+            if (title) {
+
+                const sectionName =
+                    prefix.charAt(0).toUpperCase()
+                    + prefix.slice(1);
+
+                title.textContent =
+                    sectionName
+                    + " "
+                    + (formIndex + 1);
+
+            }
+
+            newEntry.style.display = "";
+
+            container.appendChild(newEntry);
+
+            totalForms.value =
+                formIndex + 1;
+        }
+
+    </script>
+
+</body>
+
+</html>

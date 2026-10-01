@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Modern Resume Template</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #e5e7eb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1f2937;
+            padding: 40px 0;
+        }
+
+        /* A4 PAGE */
+
+        .resume-page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: auto;
+            background: white;
+            box-shadow: 0 8px 35px rgba(0,0,0,0.18);
+            display: flex;
+        }
+
+        /* LEFT COLUMN */
+
+        .left-column {
+            width: 34%;
+            background: #172554;
+            color: white;
+            padding: 35px 25px;
+        }
+
+        .profile-name {
+            font-size: 29px;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .profile-title {
+            font-size: 13px;
+            color: #bfdbfe;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .contact-section {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            font-size: 10px;
+            line-height: 1.6;
+            margin-bottom: 9px;
+            color: #dbeafe;
+            word-break: break-word;
+        }
+
+        .left-heading {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding-bottom: 7px;
+            margin-bottom: 13px;
+            border-bottom: 1px solid #3b82f6;
+        }
+
+        .skill {
+            font-size: 10px;
+            margin-bottom: 9px;
+            color: #e5e7eb;
+        }
+
+        .skill-bar {
+            height: 4px;
+            background: #334155;
+            margin-top: 4px;
+        }
+
+        .skill-level {
+            height: 4px;
+            background: #60a5fa;
+        }
+
+        .education-item {
+            margin-bottom: 18px;
+        }
+
+        .education-degree {
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .education-college {
+            font-size: 9px;
+            color: #bfdbfe;
+            margin-top: 3px;
+            line-height: 1.5;
+        }
+
+        .education-year {
+            font-size: 9px;
+            color: #d1d5db;
+            margin-top: 3px;
+        }
+
+        .language {
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+
+
+        /* RIGHT COLUMN */
+
+        .right-column {
+            width: 66%;
+            padding: 38px 35px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-heading {
+            font-size: 14px;
+            font-weight: 800;
+            color: #172554;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading::after {
+            content: "";
+            height: 1px;
+            background: #dbeafe;
+            flex: 1;
+        }
+
+        .summary {
+            font-size: 10px;
+            line-height: 1.75;
+            color: #4b5563;
+        }
+
+        .experience-item {
+            margin-bottom: 19px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .experience-role {
+            font-size: 11px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .experience-company {
+            font-size: 9px;
+            color: #2563eb;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .experience-date {
+            font-size: 8.5px;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        .experience-description {
+            margin-top: 7px;
+            padding-left: 13px;
+        }
+
+        .experience-description li {
+            font-size: 9px;
+            line-height: 1.65;
+            color: #4b5563;
+            margin-bottom: 3px;
+        }
+
+        .project {
+            margin-bottom: 17px;
+        }
+
+        .project-name {
+            font-size: 11px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .project-tech {
+            font-size: 8.5px;
+            color: #2563eb;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 9px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-top: 5px;
+        }
+
+        .certification {
+            margin-bottom: 9px;
+            font-size: 9px;
+            color: #4b5563;
+        }
+
+        .certification strong {
+            color: #111827;
+        }
+
+        .achievement {
+            font-size: 9px;
+            color: #4b5563;
+            margin-bottom: 7px;
+            line-height: 1.5;
+        }
+
+        .achievement::before {
+            content: "•";
+            color: #2563eb;
+            font-weight: bold;
+            margin-right: 7px;
+        }
+
+
+        /* PRINT */
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .resume-page {
+                box-shadow: none;
+                margin: 0;
+            }
+
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .resume-page {
+                width: 100%;
+                min-height: auto;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .resume-page {
+                flex-direction: column;
+            }
+
+            .left-column,
+            .right-column {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="resume-page">
+
+
+    <!-- =================================
+         LEFT COLUMN
+    ================================== -->
+
+    <aside class="left-column">
+
+
+        <div class="profile-name">
+            SHWETA<br>
+            DESHPANDE
+        </div>
+
+
+        <div class="profile-title">
+            SOFTWARE DEVELOPER
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="contact-section">
+
+            <div class="left-heading">
+                Contact
+            </div>
+
+            <div class="contact-item">
+                Solapur, Maharashtra
+            </div>
+
+            <div class="contact-item">
+                shweta@example.com
+            </div>
+
+            <div class="contact-item">
+                +91 98765 43210
+            </div>
+
+            <div class="contact-item">
+                linkedin.com/in/shweta-deshpande
+            </div>
+
+            <div class="contact-item">
+                github.com/shweta-deshpande
+            </div>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="contact-section">
+
+            <div class="left-heading">
+                Technical Skills
+            </div>
+
+
+            <div class="skill">
+                Java
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 90%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="skill">
+                Python
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 92%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="skill">
+                Django
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 85%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="skill">
+                MySQL
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 82%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="skill">
+                HTML / CSS
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 88%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="skill">
+                JavaScript
+
+                <div class="skill-bar">
+                    <div
+                        class="skill-level"
+                        style="width: 75%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- EDUCATION -->
+
+        <div class="contact-section">
+
+            <div class="left-heading">
+                Education
+            </div>
+
+
+            <div class="education-item">
+
+                <div class="education-degree">
+                    B.Tech Information Technology
+                </div>
+
+                <div class="education-college">
+                    Walchand Institute of Technology,
+                    Solapur
+                </div>
+
+                <div class="education-year">
+                    2023 – 2027
+                </div>
+
+                <div class="education-year">
+                    CGPA: 9.17
+                </div>
+
+            </div>
+
+
+            <div class="education-item">
+
+                <div class="education-degree">
+                    Higher Secondary Education
+                </div>
+
+                <div class="education-college">
+                    Maharashtra State Board
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LANGUAGES -->
+
+        <div class="contact-section">
+
+            <div class="left-heading">
+                Languages
+            </div>
+
+            <div class="language">
+                English
+            </div>
+
+            <div class="language">
+                Hindi
+            </div>
+
+            <div class="language">
+                Marathi
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================
+         RIGHT COLUMN
+    ================================== -->
+
+    <main class="right-column">
+
+
+        <!-- SUMMARY -->
+
+        <section class="section">
+
+            <div class="section-heading">
+                Professional Summary
+            </div>
+
+            <p class="summary">
+
+                Motivated Information Technology student with strong
+                programming knowledge and hands-on experience in Java,
+                Python, Django, MySQL and web development. Experienced
+                in building AI-powered and database-driven applications.
+                Strong problem-solving ability with an interest in
+                software development and emerging technologies.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- EXPERIENCE -->
+
+        <section class="section">
+
+            <div class="section-heading">
+                Experience
+            </div>
+
+
+            <div class="experience-item">
+
+                <div class="experience-header">
+
+                    <div>
+
+                        <div class="experience-role">
+                            Python Developer Intern
+                        </div>
+
+                        <div class="experience-company">
+                            ABC Technologies
+                        </div>
+
+                    </div>
+
+                    <div class="experience-date">
+                        Jan 2026 – Jun 2026
+                    </div>
+
+                </div>
+
+
+                <ul class="experience-description">
+
+                    <li>
+                        Developed Python-based applications
+                        for internal business workflows.
+                    </li>
+
+                    <li>
+                        Worked with MySQL databases and
+                        REST API integration.
+                    </li>
+
+                    <li>
+                        Assisted in debugging, testing and
+                        improving application functionality.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="experience-item">
+
+                <div class="experience-header">
+
+                    <div>
+
+                        <div class="experience-role">
+                            Software Development Intern
+                        </div>
+
+                        <div class="experience-company">
+                            XYZ Solutions
+                        </div>
+
+                    </div>
+
+                    <div class="experience-date">
+                        Jun 2025 – Aug 2025
+                    </div>
+
+                </div>
+
+
+                <ul class="experience-description">
+
+                    <li>
+                        Assisted in developing web-based
+                        applications using Python and Django.
+                    </li>
+
+                    <li>
+                        Created reusable components and
+                        performed application testing.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- PROJECTS -->
+
+        <section class="section">
+
+            <div class="section-heading">
+                Projects
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-name">
+                    AI Travel Planner
+                </div>
+
+                <div class="project-tech">
+                    Python · FastAPI · Hugging Face · MySQL
+                </div>
+
+                <div class="project-description">
+
+                    Developed an AI-powered travel planning
+                    application that generates personalized
+                    day-wise itineraries based on destination,
+                    budget, duration and user interests.
+
+                </div>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-name">
+                    SpeakSmart
+                </div>
+
+                <div class="project-tech">
+                    Django · Python · AI · MySQL
+                </div>
+
+                <div class="project-description">
+
+                    Developed an AI-based English communication
+                    platform providing speaking practice,
+                    vocabulary learning, grammar assistance and
+                    interview preparation.
+
+                </div>
+
+            </div>
+
+
+            <div class="project">
+
+                <div class="project-name">
+                    Effortless Attendance System
+                </div>
+
+                <div class="project-tech">
+                    Java · AWT · MySQL
+                </div>
+
+                <div class="project-description">
+
+                    Created a lecture-wise attendance management
+                    application with student records, attendance
+                    tracking and report generation.
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- CERTIFICATIONS -->
+
+        <section class="section">
+
+            <div class="section-heading">
+                Certifications
+            </div>
+
+
+            <div class="certification">
+                <strong>Java Programming Certification</strong>
+                — Programming and object-oriented development
+            </div>
+
+
+            <div class="certification">
+                <strong>Python Programming Certification</strong>
+                — Python fundamentals and application development
+            </div>
+
+
+            <div class="certification">
+                <strong>Introduction to Cyber Crime</strong>
+                — Cybersecurity fundamentals
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ACHIEVEMENTS -->
+
+        <section class="section">
+
+            <div class="section-heading">
+                Achievements
+            </div>
+
+
+            <div class="achievement">
+                Developed multiple academic software projects
+                using Python, Java and Django.
+            </div>
+
+
+            <div class="achievement">
+                Built AI-powered applications for practical
+                problem-solving.
+            </div>
+
+
+            <div class="achievement">
+                Strong academic performance with a CGPA of 9.17.
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>

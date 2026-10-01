@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ResumeCraft | Professional Resume Builder</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f7f9fc;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            width: 100%;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.92);
+            border-bottom: 1px solid #e9edf5;
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #182230;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+            color: white;
+            font-size: 21px;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
+        .hero {
+            min-height: 650px;
+            padding: 80px 7% 90px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(79, 70, 229, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 10% 80%,
+                    rgba(37, 99, 235, 0.10),
+                    transparent 30%
+                ),
+                #f8fafc;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: #eef4ff;
+            color: #315dcc;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #2563eb;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -3px;
+            color: #111827;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text {
+            max-width: 620px;
+            color: #64748b;
+            font-size: 18px;
+            line-height: 1.75;
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 24px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.22);
+            transition: 0.25s;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.28);
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 24px;
+            border-radius: 12px;
+            border: 1px solid #dbe2ed;
+            background: white;
+            color: #334155;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .secondary-btn:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .hero-note {
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .resume-card-wrapper {
+            position: relative;
+        }
+
+        .resume-card {
+            width: 100%;
+            max-width: 470px;
+            margin: auto;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow:
+                0 25px 60px rgba(15, 23, 42, 0.13),
+                0 4px 15px rgba(15, 23, 42, 0.05);
+            transform: rotate(1.5deg);
+            border: 1px solid #e8edf5;
+        }
+
+        .resume-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #edf1f6;
+        }
+
+        .resume-name {
+            font-size: 23px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .resume-role {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .resume-contact {
+            text-align: right;
+            font-size: 9px;
+            line-height: 1.8;
+            color: #64748b;
+        }
+
+        .resume-section {
+            margin-top: 20px;
+        }
+
+        .resume-section-title {
+            font-size: 10px;
+            color: #2563eb;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
+        }
+
+        .resume-line {
+            height: 7px;
+            background: #edf1f6;
+            border-radius: 10px;
+            margin-bottom: 7px;
+        }
+
+        .resume-line.short {
+            width: 65%;
+        }
+
+        .resume-line.medium {
+            width: 80%;
+        }
+
+        .resume-line.tiny {
+            width: 40%;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            border: 1px solid #e7ecf3;
+            border-radius: 14px;
+            padding: 15px 18px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.10);
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 13px;
+            color: #172033;
+        }
+
+        .floating-card span {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .floating-one {
+            left: -25px;
+            bottom: 70px;
+        }
+
+        .floating-two {
+            right: -20px;
+            top: 45px;
+        }
+
+        .features {
+            padding: 85px 7%;
+            background: white;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: auto auto 50px;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+            letter-spacing: -1.5px;
+            color: #172033;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .feature-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border: 1px solid #e8edf4;
+            border-radius: 18px;
+            background: #ffffff;
+            transition: 0.25s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #cdd9f7;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.07);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef4ff;
+            color: #2563eb;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            color: #172033;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .cta {
+            padding: 80px 7%;
+            background: #f7f9fc;
+        }
+
+        .cta-box {
+            max-width: 1050px;
+            margin: auto;
+            padding: 55px;
+            border-radius: 24px;
+            background: linear-gradient(
+                135deg,
+                #172554,
+                #312e81
+            );
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .cta-box h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .cta-box p {
+            color: #c7d2fe;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            flex-shrink: 0;
+            padding: 15px 24px;
+            border-radius: 12px;
+            background: white;
+            color: #312e81;
+            font-weight: 800;
+        }
+
+        footer {
+            padding: 28px 7%;
+            text-align: center;
+            color: #94a3b8;
+            background: white;
+            border-top: 1px solid #e9edf5;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .resume-card-wrapper {
+                margin-top: 25px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 18px 5%;
+            }
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-text {
+                font-size: 16px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .features,
+            .cta {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .section-heading h2 {
+                font-size: 29px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}" class="brand">
+
+        <div class="brand-icon">
+            R
+        </div>
+
+        <div class="brand-name">
+            ResumeCraft
+        </div>
+
+    </a>
+
+    <a
+        href="{% url 'create_resume' %}"
+        class="nav-link"
+    >
+        Build Resume →
+    </a>
+
+</header>
+
+
+<main>
+
+
+<section class="hero">
+
+    <div class="hero-container">
+
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Professional Resume Builder
+            </div>
+
+
+            <h1>
+                Build a resume that
+                <span>gets noticed.</span>
+            </h1>
+
+
+            <p class="hero-text">
+                Create a clean, professional and
+                job-ready resume in minutes. Add your
+                education, technical skills, projects,
+                internships and achievements — then
+                preview and print your resume.
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{% url 'create_resume' %}"
+                    class="primary-btn"
+                >
+                    Create My Resume →
+                </a>
+
+                <a
+                    href="#features"
+                    class="secondary-btn"
+                >
+                    Explore Features
+                </a>
+
+            </div>
+
+
+            <p class="hero-note">
+                ✓ Beginner friendly &nbsp;&nbsp;
+                ✓ Professional format &nbsp;&nbsp;
+                ✓ Print-ready design
+            </p>
+
+        </div>
+
+
+        <div class="resume-card-wrapper">
+
+
+            <div class="resume-card">
+
+                <div class="resume-top">
+
+                    <div>
+
+                        <div class="resume-name">
+                            YOUR NAME
+                        </div>
+
+                        <div class="resume-role">
+                            SOFTWARE DEVELOPER
+                        </div>
+
+                    </div>
+
+                    <div class="resume-contact">
+                        email@example.com<br>
+                        +91 XXXXX XXXXX<br>
+                        Solapur, India
+                    </div>
+
+                </div>
+
+
+                <div class="resume-section">
+
+                    <div class="resume-section-title">
+                        PROFESSIONAL SUMMARY
+                    </div>
+
+                    <div class="resume-line"></div>
+                    <div class="resume-line medium"></div>
+                    <div class="resume-line short"></div>
+
+                </div>
+
+
+                <div class="resume-section">
+
+                    <div class="resume-section-title">
+                        EDUCATION
+                    </div>
+
+                    <div class="resume-line medium"></div>
+                    <div class="resume-line tiny"></div>
+
+                </div>
+
+
+                <div class="resume-section">
+
+                    <div class="resume-section-title">
+                        TECHNICAL SKILLS
+                    </div>
+
+                    <div class="resume-line"></div>
+                    <div class="resume-line short"></div>
+
+                </div>
+
+
+                <div class="resume-section">
+
+                    <div class="resume-section-title">
+                        PROJECTS
+                    </div>
+
+                    <div class="resume-line medium"></div>
+                    <div class="resume-line"></div>
+                    <div class="resume-line short"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="floating-card floating-one">
+
+                <strong>✓ Professional</strong>
+
+                <span>Resume format</span>
+
+            </div>
+
+
+            <div class="floating-card floating-two">
+
+                <strong>PDF Ready</strong>
+
+                <span>Print your resume</span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="features" id="features">
+
+
+    <div class="section-heading">
+
+        <h2>
+            Everything you need for a great resume
+        </h2>
+
+        <p>
+            Organize your career information into
+            a clean and professional resume without
+            complicated formatting.
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                01
+            </div>
+
+            <h3>
+                Easy Resume Creation
+            </h3>
+
+            <p>
+                Enter your personal information,
+                education, skills, projects and
+                internship details using simple forms.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                02
+            </div>
+
+            <h3>
+                Professional Design
+            </h3>
+
+            <p>
+                Your information is automatically
+                arranged into a clean resume layout
+                suitable for internships and placements.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                03
+            </div>
+
+            <h3>
+                Print & PDF Ready
+            </h3>
+
+            <p>
+                Preview your completed resume and
+                use the browser print option to save
+                or print it as a PDF.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<section class="cta">
+
+    <div class="cta-box">
+
+        <div>
+
+            <h2>
+                Ready to build your resume?
+            </h2>
+
+            <p>
+                Turn your education, skills and
+                projects into a professional resume.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'create_resume' %}"
+            class="cta-btn"
+        >
+            Start Building →
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    ResumeCraft · Professional Resume Builder
+
+</footer>
+
+
+</body>
+
+</html>
