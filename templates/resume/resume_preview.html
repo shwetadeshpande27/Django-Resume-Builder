@@ -1,678 +1,793 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<title>{{ resume.full_name }} - Resume</title>
 
-    <title>{{ resume.full_name }} - Resume</title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #eef1f5;
+        color: #111827;
+        font-family: "Inter", Arial, sans-serif;
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    /* =========================================================
+       TOOLBAR
+    ========================================================= */
+
+    .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+
+        width: 100%;
+        min-height: 64px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        background: #111827;
+        padding: 12px 20px;
+
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .toolbar a,
+    .toolbar button {
+        border: none;
+        text-decoration: none;
+
+        padding: 9px 16px;
+
+        border-radius: 5px;
+
+        font-family: "Inter", Arial, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+    .edit-btn {
+        background: #374151;
+        color: #ffffff;
+    }
+
+    .edit-btn:hover {
+        background: #4b5563;
+    }
+
+    .print-btn {
+        background: #2563eb;
+        color: #ffffff;
+    }
+
+    .print-btn:hover {
+        background: #1d4ed8;
+    }
+
+    /* =========================================================
+       A4 RESUME PAGE
+    ========================================================= */
+
+    .resume-page {
+        width: 210mm;
+        min-height: 297mm;
+
+        margin: 30px auto;
+
+        background: #ffffff;
+
+        padding: 17mm 18mm 16mm 18mm;
+
+        box-shadow:
+            0 5px 25px rgba(0, 0, 0, 0.12);
+
+        overflow: hidden;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .resume-header {
+        padding-bottom: 13px;
+
+        border-bottom: 1.5px solid #111827;
+    }
+
+    .name {
+        margin: 0;
+
+        color: #111827;
+
+        font-size: 26px;
+        line-height: 1.15;
+
+        font-weight: 800;
+        letter-spacing: 0.3px;
+
+        text-transform: uppercase;
+    }
+
+    .professional-title {
+        margin-top: 5px;
+
+        color: #2563eb;
+
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .contact-information {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: 5px 14px;
+
+        margin-top: 8px;
+
+        color: #374151;
+
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .contact-item {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .contact-item a {
+        color: #374151;
+        text-decoration: none;
+    }
+
+    .contact-item a:hover {
+        color: #2563eb;
+        text-decoration: underline;
+    }
+
+    /* =========================================================
+       GENERAL SECTION
+    ========================================================= */
+
+    .resume-section {
+        margin-top: 15px;
+    }
+
+    .resume-section h2 {
+        margin: 0 0 8px 0;
+
+        padding-bottom: 4px;
+
+        border-bottom: 1px solid #d1d5db;
+
+        color: #111827;
+
+        font-size: 11px;
+        line-height: 1.3;
+
+        font-weight: 800;
+
+        letter-spacing: 1.2px;
+
+        text-transform: uppercase;
+    }
+
+    /* =========================================================
+       PROFESSIONAL SUMMARY
+    ========================================================= */
+
+    .summary-text {
+        margin: 0;
+
+        color: #374151;
+
+        font-size: 9.5px;
+        line-height: 1.6;
+
+        text-align: justify;
+    }
+
+    /* =========================================================
+       EDUCATION
+    ========================================================= */
+
+    .education-item {
+        margin-bottom: 12px;
+
+        page-break-inside: avoid;
+    }
+
+    .education-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .education-header {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .education-main {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .education-degree {
+        margin: 0;
+
+        color: #111827;
+
+        font-size: 10.5px;
+        line-height: 1.35;
+
+        font-weight: 700;
+    }
+
+    .education-institution {
+        margin-top: 2px;
+
+        color: #374151;
+
+        font-size: 9.5px;
+        font-weight: 600;
+    }
+
+    .education-location {
+        margin-top: 1px;
+
+        color: #6b7280;
+
+        font-size: 9px;
+    }
+
+    .education-duration {
+        flex-shrink: 0;
+
+        color: #374151;
+
+        font-size: 9px;
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        text-align: right;
+    }
+
+    .education-description {
+        margin: 5px 0 0 0;
+
+        max-width: 92%;
+
+        color: #4b5563;
+
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    /* =========================================================
+       TECHNICAL SKILLS
+    ========================================================= */
+
+    .skills-list {
+        display: flex;
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .skill-row {
+        display: flex;
+
+        align-items: baseline;
+
+        gap: 6px;
+
+        font-size: 9.5px;
+        line-height: 1.45;
+    }
+
+    .skill-category {
+        flex-shrink: 0;
+
+        color: #111827;
+
+        font-weight: 700;
+    }
+
+    .skill-name {
+        color: #374151;
+
+        font-weight: 400;
+    }
+
+    /* =========================================================
+       PROJECTS
+    ========================================================= */
+
+    .project-item {
+        margin-bottom: 12px;
+
+        page-break-inside: avoid;
+    }
+
+    .project-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .project-header {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: baseline;
+
+        gap: 15px;
+    }
+
+    .project-title {
+        margin: 0;
+
+        color: #111827;
+
+        font-size: 10.5px;
+        line-height: 1.35;
+
+        font-weight: 700;
+    }
+
+    .project-link {
+        flex-shrink: 0;
+
+        color: #2563eb;
+
+        font-size: 8.5px;
+
+        text-decoration: none;
+    }
+
+    .project-link:hover {
+        text-decoration: underline;
+    }
+
+    .project-technologies {
+        margin-top: 3px;
+
+        color: #111827;
+
+        font-size: 9px;
+        line-height: 1.4;
+
+        font-weight: 600;
+    }
+
+    .project-description {
+        margin: 4px 0 0 0;
+
+        color: #374151;
+
+        font-size: 9px;
+        line-height: 1.55;
+    }
+
+    /* =========================================================
+       EXPERIENCE
+    ========================================================= */
+
+    .experience-item {
+        margin-bottom: 13px;
+
+        page-break-inside: avoid;
+    }
+
+    .experience-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .experience-header {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .experience-main {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .experience-position {
+        margin: 0;
+
+        color: #111827;
+
+        font-size: 10.5px;
+        line-height: 1.35;
+
+        font-weight: 700;
+    }
+
+    .experience-organization {
+        margin-top: 3px;
+
+        color: #374151;
+
+        font-size: 9.5px;
+        font-weight: 600;
+    }
+
+    .experience-duration {
+        flex-shrink: 0;
+
+        color: #374151;
+
+        font-size: 9px;
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        text-align: right;
+    }
+
+    .experience-description {
+        margin: 5px 0 0 0;
+
+        color: #374151;
+
+        font-size: 9px;
+        line-height: 1.55;
+    }
+
+    /* =========================================================
+       ACHIEVEMENTS
+    ========================================================= */
+
+    .achievement-list {
+        margin: 0;
+        padding-left: 15px;
+    }
+
+    .achievement-list li {
+        margin-bottom: 4px;
+
+        color: #374151;
+
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .achievement-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* =========================================================
+       PRINT
+    ========================================================= */
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    @media print {
 
         html,
         body {
+            width: 210mm;
+            min-height: 297mm;
+
             margin: 0;
             padding: 0;
+
+            background: #ffffff;
         }
 
         body {
-            background: #e5e5e5;
-            font-family: Arial, Helvetica, sans-serif;
-            color: #111111;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-
-        /* =========================
-           TOP BAR
-        ========================= */
-
-        .top-bar {
-
-            height: 58px;
-
-            background: #111827;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 30px;
+        .toolbar {
+            display: none !important;
         }
 
-        .top-bar h2 {
-
-            margin: 0;
-
-            color: white;
-
-            font-size: 19px;
-
-            font-weight: 600;
-        }
-
-        .top-bar a {
-
-            background: #2563eb;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 8px 16px;
-
-            border-radius: 5px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-        }
-
-        .top-bar a:hover {
-
-            background: #1d4ed8;
-        }
-
-
-        /* =========================
-           RESUME PAGE
-        ========================= */
-
-        .resume {
-
+        .resume-page {
             width: 210mm;
-
             min-height: 297mm;
 
-            margin: 30px auto;
-
-            background: white;
-
-            padding: 18mm 18mm 16mm 18mm;
-
-            box-shadow:
-                0 3px 20px
-                rgba(0, 0, 0, 0.12);
-        }
-
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        .header {
-
-            text-align: center;
-
-            padding-bottom: 12px;
-
-            border-bottom: 1px solid #222;
-        }
-
-        .header h1 {
-
             margin: 0;
 
-            font-size: 25px;
+            padding: 17mm 18mm 16mm 18mm;
 
-            font-weight: 700;
+            box-shadow: none;
 
-            color: #111111;
+            page-break-after: auto;
         }
 
-        .title {
-
-            margin-top: 4px;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-            color: #333333;
+        .resume-section,
+        .education-item,
+        .project-item,
+        .experience-item {
+            page-break-inside: avoid;
         }
 
-        .contact {
+        a {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+    }
 
-            margin-top: 8px;
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
 
-            font-size: 10.5px;
+    @media screen and (max-width: 800px) {
 
-            line-height: 1.6;
-
-            color: #333333;
+        body {
+            background: #eef1f5;
         }
 
-        .contact a {
-
-            color: #222222;
-
-            text-decoration: none;
+        .toolbar {
+            min-height: 58px;
+            padding: 10px 12px;
         }
 
-        .contact a:hover {
-
-            text-decoration: underline;
-        }
-
-
-        /* =========================
-           SECTION
-        ========================= */
-
-        .section {
-
-            margin-top: 13px;
-        }
-
-        .section h2 {
-
-            margin: 0 0 7px 0;
-
-            padding-bottom: 3px;
-
-            border-bottom: 1px solid #333333;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.5px;
-
-            color: #111111;
-        }
-
-
-        /* =========================
-           SUMMARY
-        ========================= */
-
-        .summary {
-
-            font-size: 10.5px;
-
-            line-height: 1.45;
-
-            text-align: justify;
-
-            color: #222222;
-        }
-
-
-        /* =========================
-           GENERAL ITEMS
-        ========================= */
-
-        .item {
-
-            margin-bottom: 9px;
-        }
-
-        .item:last-child {
-
-            margin-bottom: 0;
-        }
-
-        .item-title {
-
-            font-size: 11.5px;
-
-            font-weight: 700;
-
-            color: #111111;
-        }
-
-        .item-subtitle {
-
-            margin-top: 2px;
-
-            font-size: 10.5px;
-
-            color: #222222;
-        }
-
-        .item-date {
-
-            margin-top: 2px;
-
-            font-size: 9.5px;
-
-            color: #555555;
-        }
-
-        .item-description {
-
-            margin-top: 3px;
-
+        .toolbar a,
+        .toolbar button {
+            padding: 8px 12px;
             font-size: 10px;
-
-            line-height: 1.4;
-
-            color: #222222;
         }
 
+        .resume-page {
+            width: calc(100% - 24px);
 
-        /* =========================
-           SKILLS
-        ========================= */
+            min-height: auto;
 
-        .skills {
+            margin: 15px auto;
 
-            display: block;
-
-            font-size: 10.5px;
-
-            line-height: 1.55;
-
-            color: #222222;
+            padding: 25px 22px;
         }
 
-        .skill {
-
-            display: inline;
-
-            background: none;
-
-            border: none;
-
-            padding: 0;
-
-            font-size: 10.5px;
+        .name {
+            font-size: 22px;
         }
 
-
-        /* =========================
-           PROJECTS
-        ========================= */
-
-        .project {
-
-            margin-bottom: 8px;
+        .professional-title {
+            font-size: 11px;
         }
 
-        .project-title {
-
-            font-size: 11.5px;
-
-            font-weight: 700;
-
-            color: #111111;
+        .contact-information {
+            gap: 5px 10px;
         }
 
-        .project-tech {
+        .education-header,
+        .experience-header {
+            flex-direction: column;
 
-            margin-top: 2px;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            color: #333333;
+            gap: 3px;
         }
 
-        .project-description {
-
-            margin-top: 3px;
-
-            font-size: 10px;
-
-            line-height: 1.4;
-
-            color: #222222;
+        .education-duration,
+        .experience-duration {
+            text-align: left;
         }
 
-        .project-link {
+        .project-header {
+            flex-direction: column;
 
-            display: inline-block;
-
-            margin-top: 2px;
-
-            font-size: 9.5px;
-
-            color: #222222;
-
-            text-decoration: none;
+            gap: 3px;
         }
 
-
-        /* =========================
-           EXPERIENCE
-        ========================= */
-
-        .experience {
-
-            margin-bottom: 9px;
+        .education-description {
+            max-width: 100%;
         }
+    }
 
-
-        /* =========================
-           ACHIEVEMENTS
-        ========================= */
-
-        .achievements {
-
-            margin: 0;
-
-            padding-left: 17px;
-        }
-
-        .achievements li {
-
-            margin-bottom: 3px;
-
-            font-size: 10px;
-
-            line-height: 1.4;
-
-            color: #222222;
-        }
-
-
-        /* =========================
-           DOWNLOAD BUTTON
-        ========================= */
-
-        .print-button {
-
-            position: fixed;
-
-            right: 25px;
-
-            bottom: 25px;
-
-            background: #2563eb;
-
-            color: white;
-
-            border: none;
-
-            padding: 12px 20px;
-
-            border-radius: 6px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 3px 10px
-                rgba(0, 0, 0, 0.2);
-        }
-
-        .print-button:hover {
-
-            background: #1d4ed8;
-        }
-
-
-        /* =========================
-           PRINT
-        ========================= */
-
-        @media print {
-
-            @page {
-
-                size: A4;
-
-                margin: 0;
-            }
-
-            body {
-
-                background: white;
-            }
-
-            .top-bar,
-            .print-button {
-
-                display: none !important;
-            }
-
-            .resume {
-
-                width: 210mm;
-
-                min-height: 297mm;
-
-                margin: 0;
-
-                padding:
-                    18mm
-                    18mm
-                    16mm
-                    18mm;
-
-                box-shadow: none;
-            }
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            body {
-
-                background: #e5e5e5;
-            }
-
-            .top-bar {
-
-                padding: 0 15px;
-            }
-
-            .resume {
-
-                width: 95%;
-
-                min-height: auto;
-
-                margin: 20px auto;
-
-                padding: 30px 25px;
-            }
-
-            .print-button {
-
-                right: 15px;
-
-                bottom: 15px;
-            }
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
 
+```
+<!-- =========================================================
+     TOP TOOLBAR
+========================================================= -->
 
-<!-- =====================================================
-     TOP BAR
-===================================================== -->
+<div class="toolbar">
 
-<div class="top-bar">
-
-    <h2>
-        ResumeBuilder
-    </h2>
-
-
-    <!-- IMPORTANT:
-         This now opens EDIT mode,
-         not CREATE mode.
-    -->
-
-    <a href="{% url 'edit_resume' resume.id %}">
-        Edit Resume
+    <a
+        href="{% url 'edit_resume' resume.id %}"
+        class="edit-btn"
+    >
+        ← Edit Resume
     </a>
+
+    <button
+        type="button"
+        class="print-btn"
+        onclick="window.print()"
+    >
+        Download / Print PDF
+    </button>
 
 </div>
 
 
+<!-- =========================================================
+     RESUME PAGE
+========================================================= -->
 
-<!-- =====================================================
-     RESUME
-===================================================== -->
-
-<div class="resume">
+<main class="resume-page">
 
 
-    <!-- =================================================
+    <!-- =====================================================
          HEADER
-    ================================================== -->
+    ===================================================== -->
 
-    <header class="header">
+    <header class="resume-header">
 
-        <h1>
-
+        <h1 class="name">
             {{ resume.full_name }}
-
         </h1>
 
 
         {% if resume.professional_title %}
 
-            <div class="title">
-
-                {{ resume.professional_title }}
-
-            </div>
+        <div class="professional-title">
+            {{ resume.professional_title }}
+        </div>
 
         {% endif %}
 
 
-        <div class="contact">
-
+        <div class="contact-information">
 
             {% if resume.email %}
 
+            <span class="contact-item">
                 {{ resume.email }}
+            </span>
 
             {% endif %}
 
 
             {% if resume.phone %}
 
-                | {{ resume.phone }}
+            <span class="contact-item">
+                {{ resume.phone }}
+            </span>
 
             {% endif %}
 
 
             {% if resume.location %}
 
-                | {{ resume.location }}
+            <span class="contact-item">
+                {{ resume.location }}
+            </span>
 
             {% endif %}
 
 
-            <br>
-
-
             {% if resume.linkedin %}
+
+            <span class="contact-item">
 
                 <a
                     href="{{ resume.linkedin }}"
-                    target="_blank">
-
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     LinkedIn
-
                 </a>
+
+            </span>
 
             {% endif %}
 
 
             {% if resume.github %}
 
-                {% if resume.linkedin %}
-
-                    |
-
-                {% endif %}
+            <span class="contact-item">
 
                 <a
                     href="{{ resume.github }}"
-                    target="_blank">
-
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     GitHub
-
                 </a>
+
+            </span>
 
             {% endif %}
 
 
             {% if resume.portfolio %}
 
-                {% if resume.linkedin or resume.github %}
-
-                    |
-
-                {% endif %}
+            <span class="contact-item">
 
                 <a
                     href="{{ resume.portfolio }}"
-                    target="_blank">
-
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     Portfolio
-
                 </a>
 
-            {% endif %}
+            </span>
 
+            {% endif %}
 
         </div>
 
     </header>
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          PROFESSIONAL SUMMARY
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.summary %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Professional Summary
         </h2>
 
-
-        <div class="summary">
-
+        <p class="summary-text">
             {{ resume.summary }}
-
-        </div>
+        </p>
 
     </section>
 
     {% endif %}
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          EDUCATION
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.educations.exists %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Education
@@ -681,58 +796,67 @@
 
         {% for education in resume.educations.all %}
 
-        <div class="item">
+        <div class="education-item">
+
+            <div class="education-header">
+
+                <div class="education-main">
+
+                    <h3 class="education-degree">
+                        {{ education.degree }}
+                    </h3>
 
 
-            <div class="item-title">
+                    {% if education.institution %}
 
-                {{ education.degree }}
+                    <div class="education-institution">
+                        {{ education.institution }}
+                    </div>
 
-            </div>
+                    {% endif %}
 
 
-            <div class="item-subtitle">
+                    {% if education.location %}
 
-                {{ education.institution }}
+                    <div class="education-location">
+                        {{ education.location }}
+                    </div>
 
-                {% if education.location %}
+                    {% endif %}
 
-                    — {{ education.location }}
+                </div>
+
+
+                {% if education.start_year or education.end_year %}
+
+                <div class="education-duration">
+
+                    {% if education.start_year %}
+                        {{ education.start_year }}
+                    {% endif %}
+
+                    {% if education.start_year and education.end_year %}
+                        –
+                    {% endif %}
+
+                    {% if education.end_year %}
+                        {{ education.end_year }}
+                    {% endif %}
+
+                </div>
 
                 {% endif %}
 
             </div>
-
-
-            {% if education.start_year or education.end_year %}
-
-            <div class="item-date">
-
-                {{ education.start_year }}
-
-                {% if education.start_year and education.end_year %}
-
-                    -
-
-                {% endif %}
-
-                {{ education.end_year }}
-
-            </div>
-
-            {% endif %}
 
 
             {% if education.description %}
 
-            <div class="item-description">
-
+            <p class="education-description">
                 {{ education.description }}
-
-            </div>
+            </p>
 
             {% endif %}
-
 
         </div>
 
@@ -743,42 +867,39 @@
     {% endif %}
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          TECHNICAL SKILLS
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.skills.exists %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Technical Skills
         </h2>
 
 
-        <div class="skills">
+        <div class="skills-list">
 
             {% for skill in resume.skills.all %}
 
-                <span class="skill">
+            <div class="skill-row">
 
-                    {{ skill.name }}
+                {% if skill.category %}
 
-                    {% if skill.category %}
-
-                        — {{ skill.category }}
-
-                    {% endif %}
-
+                <span class="skill-category">
+                    {{ skill.category }}:
                 </span>
 
-
-                {% if not forloop.last %}
-
-                    &nbsp; | &nbsp;
-
                 {% endif %}
+
+
+                <span class="skill-name">
+                    {{ skill.name }}
+                </span>
+
+            </div>
 
             {% endfor %}
 
@@ -789,14 +910,13 @@
     {% endif %}
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          PROJECTS
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.projects.exists %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Projects
@@ -805,47 +925,47 @@
 
         {% for project in resume.projects.all %}
 
-        <div class="project">
+        <div class="project-item">
+
+            <div class="project-header">
+
+                <h3 class="project-title">
+                    {{ project.title }}
+                </h3>
 
 
-            <div class="project-title">
+                {% if project.project_link %}
 
-                {{ project.title }}
+                <a
+                    href="{{ project.project_link }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                >
+                    View Project
+                </a>
+
+                {% endif %}
 
             </div>
 
 
             {% if project.technologies %}
 
-            <div class="project-tech">
-
-                {{ project.technologies }}
-
+            <div class="project-technologies">
+                Technologies: {{ project.technologies }}
             </div>
 
             {% endif %}
 
 
-            <div class="project-description">
+            {% if project.description %}
 
+            <p class="project-description">
                 {{ project.description }}
-
-            </div>
-
-
-            {% if project.project_link %}
-
-            <a
-                class="project-link"
-                href="{{ project.project_link }}"
-                target="_blank">
-
-                {{ project.project_link }}
-
-            </a>
+            </p>
 
             {% endif %}
-
 
         </div>
 
@@ -856,14 +976,13 @@
     {% endif %}
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          EXPERIENCE
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.experiences.exists %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Experience
@@ -872,52 +991,58 @@
 
         {% for experience in resume.experiences.all %}
 
-        <div class="experience">
+        <div class="experience-item">
+
+            <div class="experience-header">
+
+                <div class="experience-main">
+
+                    <h3 class="experience-position">
+                        {{ experience.position }}
+                    </h3>
 
 
-            <div class="item-title">
+                    {% if experience.company %}
 
-                {{ experience.position }}
+                    <div class="experience-organization">
+                        {{ experience.company }}
+                    </div>
 
-            </div>
+                    {% endif %}
 
-
-            <div class="item-subtitle">
-
-                {{ experience.company }}
-
-            </div>
+                </div>
 
 
-            {% if experience.start_date or experience.end_date %}
+                {% if experience.start_date or experience.end_date %}
 
-            <div class="item-date">
+                <div class="experience-duration">
 
-                {{ experience.start_date }}
+                    {% if experience.start_date %}
+                        {{ experience.start_date }}
+                    {% endif %}
 
-                {% if experience.start_date and experience.end_date %}
+                    {% if experience.start_date and experience.end_date %}
+                        –
+                    {% endif %}
 
-                    -
+                    {% if experience.end_date %}
+                        {{ experience.end_date }}
+                    {% endif %}
+
+                </div>
 
                 {% endif %}
 
-                {{ experience.end_date }}
-
             </div>
-
-            {% endif %}
 
 
             {% if experience.description %}
 
-            <div class="item-description">
-
+            <p class="experience-description">
                 {{ experience.description }}
-
-            </div>
+            </p>
 
             {% endif %}
-
 
         </div>
 
@@ -928,29 +1053,30 @@
     {% endif %}
 
 
-
-    <!-- =================================================
+    <!-- =====================================================
          ACHIEVEMENTS
-    ================================================== -->
+    ===================================================== -->
 
     {% if resume.achievements.exists %}
 
-    <section class="section">
+    <section class="resume-section">
 
         <h2>
             Achievements
         </h2>
 
 
-        <ul class="achievements">
+        <ul class="achievement-list">
 
             {% for achievement in resume.achievements.all %}
 
-            <li>
+                {% if achievement.description %}
 
-                {{ achievement.description }}
+                <li>
+                    {{ achievement.description }}
+                </li>
 
-            </li>
+                {% endif %}
 
             {% endfor %}
 
@@ -961,22 +1087,8 @@
     {% endif %}
 
 
-</div>
-
-
-
-<!-- =====================================================
-     DOWNLOAD PDF
-===================================================== -->
-
-<button
-    class="print-button"
-    onclick="window.print()">
-
-    Download PDF
-
-</button>
-
+</main>
+```
 
 </body>
 
